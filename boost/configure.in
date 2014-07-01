@@ -26,4 +26,5 @@ AC_PROG_RANLIB([RANLIB])
 # Checks for library functions.
 
 AC_OUTPUT(Makefile
+	asio/Makefile
 	date_time/Makefile)
