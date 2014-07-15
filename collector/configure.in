@@ -3,8 +3,8 @@
 
 AC_PREREQ([2.63])
 AC_INIT([FULL-PACKAGE-NAME], [VERSION], [BUG-REPORT-ADDRESS])
-AM_INIT_AUTOMAKE(indatabase, 1.0, "luckyzhylu@163.com")
-AC_CONFIG_SRCDIR([src])
+AM_INIT_AUTOMAKE(collector_main.cpp, 1.0, "luckyzhylu@163.com")
+AC_CONFIG_SRCDIR([cap])
 AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
@@ -32,8 +32,4 @@ my_libs="-lxml2 -lpthread -lzlog"
 CXXFLAGS="$my_cflags"
 LDFLAGS="$my_libs"
 
-AC_OUTPUT(Makefile
-	sender/Makefile
-	src/Makefile
-	src/ip_locate/Makefile
-	src/parser/Makefile)
+AC_OUTPUT(Makefile)

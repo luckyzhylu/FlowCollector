@@ -4,7 +4,7 @@ AUTOMAKE_OPTIONS=foreign
 
 bin_PROGRAMS=fc
 
-indatabase_SOURCES=collector_main.cpp
+fc_SOURCES=collector_main.cpp
 
 INCLUDES=-I$(top_srcdir)/src/ \
 	-I$(top_srcdir)/src/parser/ \
