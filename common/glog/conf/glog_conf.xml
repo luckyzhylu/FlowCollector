@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <glog_config>
+    <logtostderr>true</logtostderr>
+    <alsologtostderr>1</alsologtostderr>
+    <stderrthreshold>ERROR</stderrthreshold>
+    <minloglevel>INFO</minloglevel>
+    <log_dir>/vitotech/log.d/</log_dir>
+    <log_prefix>true</log_prefix>
+    <max_log_size>10</max_log_size>
+  </glog_config>
+</root>
