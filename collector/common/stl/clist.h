@@ -42,6 +42,7 @@ public:
 		rcNew->m_next = m_next;
 
 		m_next = rcNew;
+		m_next->m_prev = rcNew;
 	}
 
 	void InsertFront(CList *rcNew) {
