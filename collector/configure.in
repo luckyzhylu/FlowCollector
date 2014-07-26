@@ -25,11 +25,13 @@ AC_PROG_RANLIB([RANLIB])
 
 # Checks for library functions.
 
-my_cflags="-O2 -Wall -finline-functions -rdynamic -fno-strict-aliasing -fPIC"
-my_libs="-lxml2 -lpthread -lzlog"
+my_cflags="-Wall -finline-functions -rdynamic -fno-strict-aliasing -fPIC"
+my_libs=" "
 
 
 CXXFLAGS="$my_cflags"
 LDFLAGS="$my_libs"
 
-AC_OUTPUT(Makefile)
+AC_OUTPUT(Makefile
+	common/Makefile
+	common/stl/Makefile)
