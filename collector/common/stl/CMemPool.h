@@ -6,9 +6,10 @@
  * @author zhang yunlu <luckyzhylu@163.com>
  * @date   Sat Jul 26 14:37:35 2014
  * 
- * @brief  
+ * @brief  内存池实现代码，提供了基础操作Malloc(),Free()；
  * 
- * 
+ * @note 1. 非线程安全，多线程操作需要加锁
+ *       2. 不支持跨平台，m_offset = 24就在linux x86_64平台的偏移值
  */
 
 #include "clist.h"
@@ -30,7 +31,7 @@ public:
 	void Init() {
 		for (int i = 0; i < m_maxNum; i++) {
 			MemBucket *bucket = new MemBucket();
-			// printf("start=%p, list=%p, data=%p\n", bucket, &bucket->list, &bucket->data);
+			printf("start=%p, list=%p, data=%p\n", bucket, &bucket->list, &bucket->data);
 			m_emptyNum++;
 			if (i == 0) {
 				m_emptyList = &bucket->list;
@@ -78,6 +79,40 @@ public:
 		m_emptyNum++;
 		printf("Free:emptyNum=%d,usedNum=%d\n", m_emptyNum, m_usedNum);
 	}
+
+	void Destroy() {
+		printf("Destroy:emptyNum=%d,usedNum=%d\n", m_emptyNum, m_usedNum);
+		CList *list = m_emptyList;
+		for (int i = 0; i < m_emptyNum; i++) {
+			if (list == NULL) {
+				break;
+			} else {
+				printf("Destroy:%p\n", list);
+				CList *next = list->Next(); // cache next node
+				list->Delete(); // remove from list
+
+				delete ((MemBucket *)list);	// free memory
+
+				list = next;
+			}
+		}
+		m_emptyNum = 0;
+
+		list = m_usedList;
+		for (int i = 0; i < m_usedNum; i++) {
+			if (list == NULL) {
+				break;
+			} else {
+				printf("Destroy:%p\n", list);
+				CList *next = list->Next(); // cache next node
+				list->Delete(); // remove from list
+
+				delete ((MemBucket *)list);	// free memory
+				list = next;
+			}
+		}
+		m_usedNum = 0;
+	}
 private:
 	CMemPool(const CMemPool& rc);
 	CMemPool& operator=(const CMemPool& rc);
@@ -87,7 +122,7 @@ private:
 	CList *m_emptyList;
 	CList *m_usedList;
 
-	// static const int m_offset = OFFSET_OF(MemBucket, data);
+	// static const int m_offset = OFFSET_OF(MemBucket, data); // compile error
 	static const int m_offset = 24;
 	static const int m_maxNum = _num;
 };
