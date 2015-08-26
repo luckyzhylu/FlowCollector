@@ -1,0 +1,37 @@
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
+
+AC_PREREQ([2.63])
+AC_INIT([FULL-PACKAGE-NAME], [VERSION], [BUG-REPORT-ADDRESS])
+AM_INIT_AUTOMAKE(collector_main.cpp, 1.0, "luckyzhylu@163.com")
+AC_CONFIG_SRCDIR([cap])
+AC_CONFIG_HEADERS([config.h])
+
+# Checks for programs.
+AC_PROG_CXX
+AC_PROG_CC
+
+# Checks for libraries.
+
+# Checks for header files.
+AC_CHECK_HEADERS([string.h termios.h unistd.h])
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_HEADER_STDBOOL
+AC_TYPE_INT32_T
+AC_TYPE_INT8_T
+
+AC_PROG_RANLIB([RANLIB])
+
+# Checks for library functions.
+
+my_cflags="-Wall -finline-functions -rdynamic -fno-strict-aliasing -fPIC"
+my_libs=" "
+
+
+CXXFLAGS="$my_cflags"
+LDFLAGS="$my_libs"
+
+AC_OUTPUT(Makefile
+	common/Makefile
+	common/stl/Makefile)
